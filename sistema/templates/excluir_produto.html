@@ -1,9 +1,7 @@
 {% extends 'base.html' %}
-
 {% block content %}
     <div style="max-width: 500px; margin: 0 auto;">
         <h2 style="text-align: center;">Editar Produto</h2>
-        
         <form method="POST" enctype="multipart/form-data" style="display: flex; flex-direction: column; gap: 15px;">
             {% csrf_token %}
             {% for field in form %}
@@ -12,7 +10,6 @@
                     {{ field }}
                 </div>
             {% endfor %}
-            
             <button type="submit" class="btn" style="width: 100%; margin-top: 15px;">Atualizar</button>
         </form>
     </div>

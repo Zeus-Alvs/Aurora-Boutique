@@ -1,12 +1,10 @@
 {% extends 'base.html' %}
 {% block content %}
-
 <section class="admin-secao">
   <div class="admin-header">
     <h2 class="admin-header-titulo">Usuários</h2>
     <a href="{% url 'adicionar_usuario' %}" class="btn-admin-novo">+ Novo Usuário</a>
   </div>
-
   <div class="admin-table-wrap">
     <table class="admin-table">
       <thead>
@@ -37,5 +35,4 @@
     </table>
   </div>
 </section>
-
 {% endblock %}

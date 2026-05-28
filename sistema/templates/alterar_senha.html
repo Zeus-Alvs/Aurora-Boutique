@@ -2,7 +2,6 @@
 {% block content %}
     <div style="max-width: 500px; margin: 0 auto;">
         <h2 style="text-align: center;">Alterar senha</h2>
-        
         <form method="POST" style="display: flex; flex-direction: column; gap: 15px;">
             {% csrf_token %}
             {% for field in form %}

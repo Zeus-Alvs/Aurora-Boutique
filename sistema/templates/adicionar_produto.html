@@ -1,20 +1,16 @@
 {% extends 'base.html' %}
 {% block content %}
-
 <div class="admin-form-wrapper">
   <div class="admin-form-card">
     <div class="admin-form-card-top"></div>
     <div class="admin-form-card-body">
-
       <div class="admin-form-badge">
         <span></span>
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2l2.4 7.4H22l-6.2 4.5 2.4 7.4L12 17l-6.2 4.3 2.4-7.4L2 9.4h7.6z"/></svg>
         <span></span>
       </div>
-
       <h2 class="admin-form-titulo">Novo Produto</h2>
       <p class="admin-form-sub">Preencha os dados do produto</p>
-
       <form method="POST" enctype="multipart/form-data">
         {% csrf_token %}
         {% for field in form %}
@@ -26,9 +22,7 @@
         {% endfor %}
         <button type="submit" class="btn-admin-submit">Salvar Produto</button>
       </form>
-
     </div>
   </div>
 </div>
-
 {% endblock %}

@@ -2,7 +2,6 @@
 {% block content %}
     <div style="max-width: 500px; margin: 40px auto; text-align: center; border: 1px solid #eee; padding: 40px; border-radius: 8px;">
         <h3 style="margin-bottom: 30px; font-weight: normal;">Tem certeza que deseja excluir o registro da compra de<br><strong>{{ compra.produto.nome }}</strong> feita por <strong>{{ compra.cliente.username }}</strong>?</h3>
-        
         <form method="POST" style="display: flex; justify-content: center; gap: 15px;">
             {% csrf_token %}
             <button type="submit" class="btn" style="background-color: #dc3545; padding: 12px 25px;">Sim, excluir</button>

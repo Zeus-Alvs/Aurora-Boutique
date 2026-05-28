@@ -3,23 +3,23 @@ import os
 from dotenv import load_dotenv
 import firebase_admin
 from firebase_admin import credentials, firestore
-# Build paths inside the project like this: BASE_DIR / 'subdir'.
+
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 
-# Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/6.0/howto/deployment/checklist/
 
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-hz(om$i#@93y&wjpwipx$0giy)5gp@vf3wmnuwpfytv+tf3koz'
 
-# SECURITY WARNING: don't run with debug turned on in production!
+
+
+SECRET_KEY = 'django-insecure-hz(om$i
+
+
 DEBUG = True
 
 ALLOWED_HOSTS = []
 
 
-# Application definition
+
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -61,8 +61,8 @@ TEMPLATES = [
 WSGI_APPLICATION = 'core.wsgi.application'
 
 
-# Database
-# https://docs.djangoproject.com/en/6.0/ref/settings/#databases
+
+
 
 DATABASES = {
     'default': {
@@ -72,8 +72,8 @@ DATABASES = {
 }
 
 
-# Password validation
-# https://docs.djangoproject.com/en/6.0/ref/settings/#auth-password-validators
+
+
 
 AUTH_PASSWORD_VALIDATORS = [
     {
@@ -91,8 +91,8 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 
-# Internationalization
-# https://docs.djangoproject.com/en/6.0/topics/i18n/
+
+
 
 LANGUAGE_CODE = 'pt-br'
 
@@ -103,8 +103,8 @@ USE_I18N = True
 USE_TZ = True
 
 
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/6.0/howto/static-files/
+
+
 
 STATIC_URL = 'static/'
 
@@ -116,20 +116,20 @@ MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 
-LOGIN_URL = 'login' 
+LOGIN_URL = 'login'
 LOGIN_REDIRECT_URL = 'index'
 LOGOUT_REDIRECT_URL = 'index'
 
 load_dotenv()
 
-# Inicializa o Firebase
+
 FIREBASE_KEY_PATH = os.getenv('FIREBASE_CREDENTIALS')
 
 if FIREBASE_KEY_PATH and not firebase_admin._apps:
-    # Resolve o caminho absoluto baseado na pasta do projeto
+
     cred_path = os.path.join(BASE_DIR, FIREBASE_KEY_PATH)
     cred = credentials.Certificate(cred_path)
     firebase_admin.initialize_app(cred)
-    
-    # Esta variável 'db_nosql' será importada nas nossas views para gravar/ler as avaliações
+
+
     db_nosql = firestore.client()

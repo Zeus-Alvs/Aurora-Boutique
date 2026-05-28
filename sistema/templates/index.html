@@ -1,7 +1,5 @@
 {% extends 'base.html' %}
 {% block content %}
-
-<!-- HERO -->
 <section class="hero">
   <div class="hero-bg"></div>
   <div class="hero-content">
@@ -16,8 +14,6 @@
     <a href="{% url 'criar_conta' %}" class="btn-primario">Crie sua conta</a>
   </div>
 </section>
-
-<!-- CATEGORIAS -->
 <section class="secao-categorias">
   <h2 class="secao-titulo">Nossas Especialidades</h2>
   <p class="secao-subtitulo">Arte e cuidado em cada detalhe</p>
@@ -29,8 +25,6 @@
     <div class="categoria-item"><div class="categoria-icone">🎁</div><span class="categoria-label">Presentes</span></div>
   </div>
 </section>
-
-<!-- AVALIAÇÕES -->
 <section class="secao-avaliacoes">
   <div style="text-align:center; margin-bottom:52px;">
     <h2 class="secao-titulo">O que dizem nossos clientes</h2>
@@ -50,5 +44,4 @@
     {% endfor %}
   </div>
 </section>
-
 {% endblock %}

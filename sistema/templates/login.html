@@ -1,11 +1,9 @@
 {% extends 'base.html' %}
 {% block content %}
-
 <div class="auth-wrapper">
   <div class="auth-card">
     <div class="auth-card-top"></div>
     <div class="auth-card-body">
-
       <div class="auth-badge">
         <span></span>
         <svg width="10" height="10" viewBox="0 0 14 14" fill="currentColor">
@@ -13,10 +11,8 @@
         </svg>
         <span></span>
       </div>
-
       <h2 class="auth-titulo">Bem-vinda de volta</h2>
       <p class="auth-sub">Entre na sua conta Aurora Boutique</p>
-
       <form method="POST">
         {% csrf_token %}
         {% for field in form %}
@@ -30,13 +26,10 @@
         {% endfor %}
         <button type="submit" class="btn-auth">Entrar</button>
       </form>
-
       <div class="auth-link">
         Ainda não tem conta? <a href="{% url 'criar_conta' %}">Crie a sua agora</a>
       </div>
-
     </div>
   </div>
 </div>
-
 {% endblock %}

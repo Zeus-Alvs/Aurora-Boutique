@@ -28,9 +28,9 @@ class Contato(models.Model):
         return self.nome
 
 class Compra(models.Model):
-    # Relacionamento com o usuário que comprou
+
     cliente = models.ForeignKey(User, on_delete=models.CASCADE)
-    # Relacionamento com o produto comprado
+
     produto = models.ForeignKey(Produto, on_delete=models.CASCADE)
     quantidade = models.IntegerField(default=1)
     preco_na_epoca = models.DecimalField(max_digits=10, decimal_places=2)

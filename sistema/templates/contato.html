@@ -1,9 +1,7 @@
 {% extends 'base.html' %}
 {% block content %}
-
 <div class="contato-wrapper">
   <div class="contato-card">
-
     <div class="contato-badge">
       <span></span>
       <svg width="10" height="10" viewBox="0 0 14 14" fill="currentColor">
@@ -11,10 +9,8 @@
       </svg>
       <span></span>
     </div>
-
     <h2 class="contato-titulo">Fale Conosco</h2>
     <p class="contato-sub">Dúvidas, encomendas especiais ou suporte corporativo.</p>
-
     <form method="POST">
       {% csrf_token %}
       {% for field in form %}
@@ -28,8 +24,6 @@
       {% endfor %}
       <button type="submit" class="btn-contato">Enviar Mensagem</button>
     </form>
-
   </div>
 </div>
-
 {% endblock %}

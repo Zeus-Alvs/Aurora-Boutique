@@ -1,6 +1,5 @@
 {% extends 'base.html' %}
 {% block content %}
-
 <section class="banner-topo">
   <span class="banner-label">Administração</span>
   <h1 class="banner-titulo">Dash<em>board</em></h1>
@@ -10,10 +9,8 @@
     <span></span>
   </div>
 </section>
-
 <section class="dashboard-secao">
   <div class="dashboard-grid">
-
     <a href="{% url 'listar_usuarios' %}" class="dashboard-card">
       <div class="dashboard-card-top"></div>
       <div class="dashboard-card-body">
@@ -26,7 +23,6 @@
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
       </div>
     </a>
-
     <a href="{% url 'listar_produtos' %}" class="dashboard-card">
       <div class="dashboard-card-top"></div>
       <div class="dashboard-card-body">
@@ -39,7 +35,6 @@
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
       </div>
     </a>
-
     <a href="{% url 'listar_categorias' %}" class="dashboard-card">
       <div class="dashboard-card-top"></div>
       <div class="dashboard-card-body">
@@ -52,7 +47,6 @@
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
       </div>
     </a>
-
     <a href="{% url 'listar_compras' %}" class="dashboard-card">
       <div class="dashboard-card-top"></div>
       <div class="dashboard-card-body">
@@ -65,7 +59,6 @@
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
       </div>
     </a>
-
     <a href="{% url 'listar_contatos' %}" class="dashboard-card">
       <div class="dashboard-card-top"></div>
       <div class="dashboard-card-body">
@@ -78,7 +71,6 @@
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
       </div>
     </a>
-
     <a href="{% url 'listar_avaliacoes' %}" class="dashboard-card">
       <div class="dashboard-card-top"></div>
       <div class="dashboard-card-body">
@@ -91,8 +83,6 @@
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
       </div>
     </a>
-
   </div>
 </section>
-
 {% endblock %}

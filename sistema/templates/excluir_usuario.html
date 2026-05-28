@@ -1,15 +1,11 @@
 {% extends 'base.html' %}
-
 {% block content %}
     <div style="max-width: 500px; margin: 40px auto; text-align: center; border: 1px solid #eee; padding: 40px; border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.05);">
-        
         <h3 style="margin-bottom: 30px; font-weight: normal;">Tem certeza que deseja excluir<br><strong>{{ usuario.username }}?</strong></h3>
-        
         <form method="POST" style="display: flex; justify-content: center; gap: 15px;">
             {% csrf_token %}
             <button type="submit" class="btn" style="background-color: #dc3545; padding: 12px 25px; font-weight: bold;">Sim, excluir</button>
             <a href="{% url 'listar_usuarios' %}" class="btn" style="background-color: #e0e0e0; color: #333; padding: 12px 25px; text-decoration: none; font-weight: bold;">Cancelar</a>
         </form>
-        
     </div>
 {% endblock %}

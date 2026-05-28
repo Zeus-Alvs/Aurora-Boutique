@@ -8,7 +8,7 @@ class UsuarioForm(UserCreationForm):
 
     class Meta:
         model = User
-        fields = ['username', 'email'] 
+        fields = ['username', 'email']
 
 class ContatoForm(forms.ModelForm):
     class Meta:
