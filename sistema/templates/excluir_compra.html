@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+{% block content %}
+    <div style="max-width: 500px; margin: 40px auto; text-align: center; border: 1px solid #eee; padding: 40px; border-radius: 8px; background-color: #ffffff;">
+        <h3 style="margin-bottom: 30px; font-weight: normal; color: #333;">Tem a certeza que deseja cancelar o registro da compra de<br><strong style="color: #800020;">{{ compra.produto.nome }}</strong>?</h3>
+        <p style="color: #666; font-size: 0.9em; margin-bottom: 30px;">Feita por: <span style="font-weight: bold;">{{ compra.cliente.username }}</span></p>
+        
+        <form method="POST" style="display: flex; justify-content: center; gap: 15px;">
+            {% csrf_token %}
+            <button type="submit" class="btn" style="background-color: #dc3545; color: white; border: none; padding: 12px 25px; border-radius: 6px; cursor: pointer; font-weight: bold;">Sim, cancelar venda</button>
+            <a href="{% url 'listar_compras' %}" class="btn" style="background-color: #e0e0e0; color: #333; padding: 12px 25px; border-radius: 6px; text-decoration: none; font-weight: bold;">Voltar</a>
+        </form>
+    </div>
+{% endblock %}

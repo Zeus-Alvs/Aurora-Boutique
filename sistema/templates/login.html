@@ -7,22 +7,41 @@
       <div class="auth-badge">
         <span></span>
         <svg width="10" height="10" viewBox="0 0 14 14" fill="currentColor">
-          <path d="M7 0l1.5 5.5L14 7l-5.5 1.5L7 14l-1.5-5.5L0 7l5.5-1.5z"/>
+          <path d="M7 0l1.5 5.5L14 7l-5.5 1.5L7 14l-1.5-5.5L0 7l5.5-1.5z" />
         </svg>
         <span></span>
       </div>
       <h2 class="auth-titulo">Bem-vinda de volta</h2>
       <p class="auth-sub">Entre na sua conta Aurora Boutique</p>
+
+      {% if messages %}
+      {% for message in messages %}
+      {% if 'alerta_login' in message.tags %}
+      <div class="auth-alerta">
+        {{ message }}
+      </div>
+      {% endif %}
+      {% endfor %}
+      {% endif %}
+
+      {% if form.non_field_errors %}
+      <div class="auth-erro-geral">
+        {% for error in form.non_field_errors %}
+        {{ error }}
+        {% endfor %}
+      </div>
+      {% endif %}
+
       <form method="POST">
         {% csrf_token %}
         {% for field in form %}
-          <div>
-            <label>{{ field.label }}</label>
-            {{ field }}
-            {% if field.errors %}
-              <p class="campo-erro">{{ field.errors|striptags }}</p>
-            {% endif %}
-          </div>
+        <div>
+          <label>{{ field.label }}</label>
+          {{ field }}
+          {% if field.errors %}
+          <p class="campo-erro">{{ field.errors|striptags }}</p>
+          {% endif %}
+        </div>
         {% endfor %}
         <button type="submit" class="btn-auth">Entrar</button>
       </form>

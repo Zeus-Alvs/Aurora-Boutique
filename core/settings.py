@@ -7,11 +7,7 @@ from firebase_admin import credentials, firestore
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 
-
-
-
-
-SECRET_KEY = 'django-insecure-hz(om$i
+SECRET_KEY = 'django-insecure-hz(om$i#@93y&wjpwipx$0giy)5gp@vf3wmnuwpfytv+tf3koz'
 
 
 DEBUG = True

@@ -32,5 +32,6 @@ urlpatterns = [
     path('avaliacoes/', views.listar_avaliacoes, name='listar_avaliacoes'),
     path('del-avaliacao/<str:id>/', views.excluir_avaliacao, name='excluir_avaliacao'),
     path('sincronizar-api/', views.sincronizar_api, name='sincronizar_api'),
-    path('add-usuario/', views.adicionar_usuario, name='adicionar_usuario')
+    path('add-usuario/', views.adicionar_usuario, name='adicionar_usuario'),
+    path('del-contato/<int:id>/', views.excluir_contato, name='excluir_contato'),
 ]

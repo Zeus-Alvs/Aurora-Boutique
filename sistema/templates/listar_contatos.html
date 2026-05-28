@@ -25,11 +25,13 @@
           <td>{{ contato.assunto }}</td>
           <td>{{ contato.mensagem }}</td>
           <td>
-            <a href="#" class="btn-acao btn-acao-excluir">Excluir</a>
+            <a href="{% url 'excluir_contato' contato.id %}" class="btn-acao btn-acao-excluir">Excluir</a>
           </td>
         </tr>
         {% empty %}
-        <tr class="admin-table-vazia"><td colspan="6">Nenhuma mensagem recebida ainda.</td></tr>
+        <tr class="admin-table-vazia">
+          <td colspan="6">Nenhuma mensagem recebida ainda.</td>
+        </tr>
         {% endfor %}
       </tbody>
     </table>

@@ -1,22 +1,27 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Aurora Boutique</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Tenor+Sans&display=swap" rel="stylesheet">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Tenor+Sans&display=swap"
+    rel="stylesheet">
   <link rel="stylesheet" href="{% static 'css/style.css' %}">
 </head>
+
 <body>
   <header class="navbar">
     <a href="{% url 'index' %}" class="navbar-logo">
       <div class="navbar-logo-gem">✦</div>
       Aurora <span>Boutique</span>
     </a>
-    <button class="navbar-toggle" aria-label="Menu" onclick="document.querySelector('.navbar-links').classList.toggle('active');this.classList.toggle('active');">
+    <button class="navbar-toggle" aria-label="Menu"
+      onclick="document.querySelector('.navbar-links').classList.toggle('active');this.classList.toggle('active');">
       <span></span><span></span><span></span>
     </button>
     <nav class="navbar-links">
@@ -26,28 +31,45 @@
       <a href="{% url 'add_contato' %}" class="nav-link">Contato</a>
       <div class="nav-divisor"></div>
       {% if user.is_authenticated %}
-        {% if user.is_superuser %}
-          <a href="{% url 'dashboard' %}" class="nav-link">Dashboard</a>
-          <span class="nav-saudacao">Olá, admin</span>
-        {% else %}
-          <a href="{% url 'perfil' %}" class="nav-link">Perfil</a>
-          <span class="nav-saudacao">Olá, {{ user.username }}</span>
-        {% endif %}
-        <form action="{% url 'logout' %}" method="post" style="display:inline; margin-left:8px;">
-          {% csrf_token %}
-          <button type="submit" class="btn-nav-logout">Sair</button>
-        </form>
+      {% if user.is_superuser %}
+      <a href="{% url 'dashboard' %}" class="nav-link">Dashboard</a>
+      <span class="nav-saudacao">Olá, admin</span>
       {% else %}
-        <a href="{% url 'login' %}" class="btn-nav-login">Entrar</a>
+      <a href="{% url 'perfil' %}" class="nav-link">Perfil</a>
+      <span class="nav-saudacao">Olá, {{ user.username }}</span>
+      {% endif %}
+      <form action="{% url 'logout' %}" method="post" style="display:inline; margin-left:8px;">
+        {% csrf_token %}
+        <button type="submit" class="btn-nav-logout">Sair</button>
+      </form>
+      {% else %}
+      <a href="{% url 'login' %}" class="btn-nav-login">Entrar</a>
       {% endif %}
     </nav>
   </header>
+
   <main>
+    {% if messages %}
+    <div style="max-width: 800px; margin: 20px auto; padding: 0 20px;">
+      {% for message in messages %}
+      {% if 'alerta_login' not in message.tags %}
+      <div style="padding: 15px; margin-bottom: 10px; border-radius: 6px; text-align: center; font-weight: bold; font-size: 0.9em;
+                        {% if message.tags == 'error' %}background-color: #FFF0F0; color: #800020; border: 1px solid #800020;
+                        {% else %}background-color: #FDFBF7; color: #D4AF37; border: 1px solid #D4AF37;{% endif %}">
+        {{ message }}
+      </div>
+      {% endif %}
+      {% endfor %}
+    </div>
+    {% endif %}
+
     {% block content %}{% endblock %}
   </main>
+
   <footer>
     <div class="footer-logo">Aurora Boutique</div>
     <p class="footer-copy">© 2024 Aurora Boutique · Todos os direitos reservados</p>
   </footer>
 </body>
+
 </html>

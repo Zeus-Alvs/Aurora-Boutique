@@ -25,7 +25,7 @@
           <td>{{ compra.cliente.username }}</td>
           <td>
             {% if compra.produto.imagem %}
-              <img src="{{ compra.produto.imagem.url }}" alt="{{ compra.produto.nome }}" class="admin-table-img">
+            <img src="{{ compra.produto.imagem.url }}" alt="{{ compra.produto.nome }}" class="admin-table-img">
             {% endif %}
           </td>
           <td>{{ compra.produto.nome }}</td>
@@ -37,7 +37,9 @@
           </td>
         </tr>
         {% empty %}
-        <tr class="admin-table-vazia"><td colspan="8">Nenhuma compra registrada.</td></tr>
+        <tr class="admin-table-vazia">
+          <td colspan="8">Nenhuma compra registrada.</td>
+        </tr>
         {% endfor %}
       </tbody>
     </table>

@@ -35,7 +35,7 @@ def criar_conta(request):
         form = UsuarioForm(request.POST)
         if form.is_valid():
             form.save()
-            messages.success(request, 'Cadastro concluído! Faça seu login abaixo.')
+            messages.success(request, 'Cadastro concluído! Faça seu login abaixo.', extra_tags='alerta_login')
             return redirect('login')
     else:
         form = UsuarioForm()
@@ -124,6 +124,14 @@ def excluir_categoria(request, id):
         categoria.delete()
         return redirect('listar_categorias')
     return render(request, 'excluir_categoria.html', {'categoria': categoria})
+
+@user_passes_test(is_admin, login_url='index')
+def excluir_contato(request, id):
+    contato = get_object_or_404(Contato, id=id)
+    if request.method == 'POST':
+        contato.delete()
+        return redirect('listar_contatos')
+    return render(request, 'excluir_contato.html', {'contato': contato})
 
 @user_passes_test(is_admin, login_url='index')
 def listar_produtos(request):

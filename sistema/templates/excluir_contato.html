@@ -1,13 +1,13 @@
 {% extends 'base.html' %}
 {% block content %}
     <div style="max-width: 500px; margin: 40px auto; text-align: center; border: 1px solid #eee; padding: 40px; border-radius: 8px; background-color: #ffffff;">
-        <h3 style="margin-bottom: 30px; font-weight: normal; color: #333;">Tem a certeza que deseja excluir o produto permanentemente?<br><strong style="color: #800020;">{{ produto.nome }}</strong></h3>
-        <p style="color: #666; font-size: 0.9em; margin-bottom: 30px;">Esta ação não pode ser desfeita e o item sairá da vitrine.</p>
+        <h3 style="margin-bottom: 30px; font-weight: normal; color: #333;">Tem a certeza que deseja excluir esta mensagem permanentemente?</h3>
+        <p style="color: #666; font-size: 0.9em; margin-bottom: 30px;">Remetente: <strong style="color: #800020;">{{ contato.nome }}</strong></p>
         
         <form method="POST" style="display: flex; justify-content: center; gap: 15px;">
             {% csrf_token %}
             <button type="submit" class="btn" style="background-color: #dc3545; color: white; border: none; padding: 12px 25px; border-radius: 6px; cursor: pointer; font-weight: bold;">Sim, excluir</button>
-            <a href="{% url 'listar_produtos' %}" class="btn" style="background-color: #e0e0e0; color: #333; padding: 12px 25px; border-radius: 6px; text-decoration: none; font-weight: bold;">Cancelar</a>
+            <a href="{% url 'listar_contatos' %}" class="btn" style="background-color: #e0e0e0; color: #333; padding: 12px 25px; border-radius: 6px; text-decoration: none; font-weight: bold;">Cancelar</a>
         </form>
     </div>
 {% endblock %}
