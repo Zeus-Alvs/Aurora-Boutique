@@ -11,12 +11,11 @@ from datetime import datetime
 import requests
 from django.http import JsonResponse
 from django.db.models import Sum, F
+import json
+from django.http import JsonResponse
 
 def is_admin(user):
     return user.is_superuser
-
-
-
 
 
 def index(request):
@@ -231,33 +230,7 @@ def vitrine_produtos(request):
     return render(request, 'vitrine_produtos.html', {'produtos_locais': produtos})
 
 
-@user_passes_test(is_admin, login_url='index')
-def sincronizar_api(request):
 
-    categoria_api, created = Categoria.objects.get_or_create(nome="Alta Joalheria (API)")
-
-    try:
-
-        resposta = requests.get('https://fakestoreapi.com/products/category/jewelery', timeout=5)
-        if resposta.status_code == 200:
-            produtos_api = resposta.json()
-
-
-            for item in produtos_api:
-
-                if not Produto.objects.filter(nome=item['title']).exists():
-                    Produto.objects.create(
-                        nome=item['title'],
-                        preco=item['price'],
-                        quantidade=15,
-                        categoria=categoria_api,
-                        imagem_url=item['image']
-                    )
-            messages.success(request, "Joias da API importadas com sucesso para o banco de dados!")
-    except Exception as e:
-        messages.error(request, f"Erro ao conectar com a API: {e}")
-
-    return redirect('listar_produtos')
 
 
 
@@ -345,7 +318,6 @@ def relatorio_vendas(request):
 
 @user_passes_test(is_admin, login_url='index')
 def api_dados_vendas(request):
-    # Agrupa as compras pelo nome do produto e soma o (quantidade * preco)
     vendas = Compra.objects.values('produto__nome').annotate(
         faturamento=Sum(F('quantidade') * F('preco_na_epoca'))
     )
@@ -361,3 +333,24 @@ def api_dados_vendas(request):
         'labels': labels,
         'valores': valores
     })
+
+@user_passes_test(is_admin, login_url='index')
+def sincronizar_api_js(request):
+    if request.method == 'POST':
+        dados_api = json.loads(request.body)
+        
+        categoria_api, created = Categoria.objects.get_or_create(nome="Alta Joalheria (API)")
+        
+        for item in dados_api:
+            if not Produto.objects.filter(nome=item['title']).exists():
+                Produto.objects.create(
+                    nome=item['title'],
+                    preco=item['price'],
+                    quantidade=15,
+                    categoria=categoria_api,
+                    imagem_url=item['image']
+                )
+                
+        messages.success(request, "Joias importadas com sucesso via JavaScript!")
+        
+        return JsonResponse({'status': 'ok'})

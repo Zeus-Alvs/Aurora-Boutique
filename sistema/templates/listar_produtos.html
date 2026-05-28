@@ -16,7 +16,8 @@
   <div class="admin-header">
         <h2 class="admin-header-titulo">Produtos</h2>
         <div>
-            <a href="{% url 'sincronizar_api' %}" class="btn-admin-novo">⚡ Importar da API</a>
+            {% csrf_token %}
+            <button onclick="puxarESalvar()" class="btn-admin-novo" style="border: none; cursor: pointer; font-family: inherit; font-size: inherit;">⚡ Importar da API</button>
             <a href="{% url 'add_produto' %}" class="btn-admin-novo">+ Novo Produto</a>
         </div>
     </div>
@@ -40,6 +41,8 @@
           <td>
             {% if produto.imagem %}
               <img src="{{ produto.imagem.url }}" alt="{{ produto.nome }}" class="admin-table-img">
+            {% elif produto.imagem_url %}
+              <img src="{{ produto.imagem_url }}" alt="{{ produto.nome }}" class="admin-table-img">
             {% else %}
               <span class="admin-table-sem-foto">Sem foto</span>
             {% endif %}
@@ -60,4 +63,33 @@
     </table>
   </div>
 </section>
+
+<script>
+async function puxarESalvar() {
+    try {
+        const respostaFakeStore = await fetch('https://fakestoreapi.com/products/category/jewelery');
+        const joias = await respostaFakeStore.json();
+
+        const csrfToken = document.querySelector('[name=csrfmiddlewaretoken]').value;
+
+        const respostaDjango = await fetch('/api/sincronizar-js/', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRFToken': csrfToken
+            },
+            body: JSON.stringify(joias) 
+        });
+
+        if (respostaDjango.ok) {
+            window.location.reload();
+        } else {
+            alert("Erro no servidor ao tentar salvar os dados.");
+        }
+        
+    } catch (erro) {
+        alert("Erro de conexão ao tentar puxar os produtos: " + erro);
+    }
+}
+</script>
 {% endblock %}
