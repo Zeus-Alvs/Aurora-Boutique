@@ -34,4 +34,6 @@ urlpatterns = [
     path('sincronizar-api/', views.sincronizar_api, name='sincronizar_api'),
     path('add-usuario/', views.adicionar_usuario, name='adicionar_usuario'),
     path('del-contato/<int:id>/', views.excluir_contato, name='excluir_contato'),
+    path('relatorio-vendas/', views.relatorio_vendas, name='relatorio_vendas'),
+    path('api/dados-vendas/', views.api_dados_vendas, name='api_dados_vendas')
 ]

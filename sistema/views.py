@@ -9,7 +9,8 @@ from django.contrib.auth.models import User
 from core.settings import db_nosql
 from datetime import datetime
 import requests
-
+from django.http import JsonResponse
+from django.db.models import Sum, F
 
 def is_admin(user):
     return user.is_superuser
@@ -337,3 +338,26 @@ def adicionar_usuario(request):
     else:
         form = UsuarioForm()
     return render(request, 'adicionar_usuario.html', {'form': form})
+
+@user_passes_test(is_admin, login_url='index')
+def relatorio_vendas(request):
+    return render(request, 'relatorio_vendas.html')
+
+@user_passes_test(is_admin, login_url='index')
+def api_dados_vendas(request):
+    # Agrupa as compras pelo nome do produto e soma o (quantidade * preco)
+    vendas = Compra.objects.values('produto__nome').annotate(
+        faturamento=Sum(F('quantidade') * F('preco_na_epoca'))
+    )
+    
+    labels = []
+    valores = []
+    
+    for venda in vendas:
+        labels.append(venda['produto__nome'])
+        valores.append(float(venda['faturamento']))
+        
+    return JsonResponse({
+        'labels': labels,
+        'valores': valores
+    })

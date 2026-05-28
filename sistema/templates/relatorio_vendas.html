@@ -1,0 +1,167 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+<section class="banner-topo">
+  <span class="banner-label">Administração</span>
+  <h1 class="banner-titulo">Relatório de <em>Vendas</em></h1>
+  <div class="banner-divisor">
+    <span></span>
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+      <path d="M12 2l2.4 7.4H22l-6.2 4.5 2.4 7.4L12 17l-6.2 4.3 2.4-7.4L2 9.4h7.6z"/>
+    </svg>
+    <span></span>
+  </div>
+</section>
+
+<section class="admin-secao" style="max-width: 960px; margin: 0 auto;">
+
+  <div style="display: flex; flex-wrap: wrap; gap: 20px; justify-content: center; margin-bottom: 48px;">
+
+    <div style="background:#fff; border:1px solid rgba(201,168,76,.28); border-radius:4px; padding:28px 36px; text-align:center; min-width:180px; flex:1; max-width:220px;">
+      <p style="font-size:.65rem; letter-spacing:.22em; text-transform:uppercase; color:var(--texto-suave); margin-bottom:10px;">Total de Vendas</p>
+      <p id="resumo-total" style="font-family:'Cormorant Garamond',serif; font-size:2rem; color:var(--borgonha); font-weight:600;">—</p>
+    </div>
+
+    <div style="background:#fff; border:1px solid rgba(201,168,76,.28); border-radius:4px; padding:28px 36px; text-align:center; min-width:180px; flex:1; max-width:220px;">
+      <p style="font-size:.65rem; letter-spacing:.22em; text-transform:uppercase; color:var(--texto-suave); margin-bottom:10px;">Faturamento Total</p>
+      <p id="resumo-fat" style="font-family:'Cormorant Garamond',serif; font-size:2rem; color:var(--ouro); font-weight:600;">—</p>
+    </div>
+
+    <div style="background:#fff; border:1px solid rgba(201,168,76,.28); border-radius:4px; padding:28px 36px; text-align:center; min-width:180px; flex:1; max-width:220px;">
+      <p style="font-size:.65rem; letter-spacing:.22em; text-transform:uppercase; color:var(--texto-suave); margin-bottom:10px;">Produto Destaque</p>
+      <p id="resumo-destaque" style="font-family:'Cormorant Garamond',serif; font-size:1.2rem; color:var(--borgonha); font-weight:600; line-height:1.3;">—</p>
+    </div>
+
+  </div>
+
+  <div style="background:#fff; border:1px solid rgba(201,168,76,.28); border-radius:4px; overflow:hidden; box-shadow:0 20px 60px rgba(107,0,26,.05);">
+
+    <!-- faixa topo -->
+    <div style="height:3px; background:linear-gradient(to right, var(--borgonha), var(--ouro), var(--borgonha));"></div>
+
+    <div style="padding: 40px 48px;">
+
+      <div style="text-align:center; margin-bottom:36px;">
+        <p style="font-size:.65rem; letter-spacing:.3em; text-transform:uppercase; color:var(--texto-suave); margin-bottom:8px;">Análise</p>
+        <h2 style="font-family:'Cormorant Garamond',serif; font-size:1.9rem; font-weight:400; color:var(--borgonha);">Faturamento por Produto</h2>
+      </div>
+
+      <canvas id="meuGrafico" style="width:100%; max-height:380px;"></canvas>
+
+      <div style="text-align:center; margin-top:40px;">
+        <button onclick="gerarPDF()" class="btn-admin-submit" style="width:auto; padding:13px 48px; display:inline-block;">
+          Exportar Relatório PDF
+        </button>
+      </div>
+
+    </div>
+  </div>
+
+</section>
+
+<script>
+fetch('/api/dados-vendas/')
+  .then(r => r.json())
+  .then(data => {
+
+    const total = data.valores.reduce((a, b) => a + b, 0);
+    const maxIdx = data.valores.indexOf(Math.max(...data.valores));
+
+    document.getElementById('resumo-total').textContent = data.valores.length;
+    document.getElementById('resumo-fat').textContent =
+      'R$ ' + total.toLocaleString('pt-BR', { minimumFractionDigits: 2 });
+    document.getElementById('resumo-destaque').textContent =
+      data.labels[maxIdx] || '—';
+
+    const ctx = document.getElementById('meuGrafico');
+    new Chart(ctx, {
+      type: 'bar',
+      data: {
+        labels: data.labels,
+        datasets: [{
+          label: 'Faturamento (R$)',
+          data: data.valores,
+          backgroundColor: 'rgba(201,168,76,.25)',
+          borderColor: '#C9A84C',
+          borderWidth: 2,
+          borderRadius: 2,
+          hoverBackgroundColor: 'rgba(107,0,26,.18)',
+          hoverBorderColor: '#6B001A',
+        }]
+      },
+      options: {
+        responsive: true,
+        plugins: {
+          legend: {
+            labels: {
+              font: { family: "'Tenor Sans', sans-serif", size: 12 },
+              color: '#7A6358',
+              boxWidth: 14,
+            }
+          },
+          tooltip: {
+            backgroundColor: '#45000F',
+            titleFont: { family: "'Cormorant Garamond', serif", size: 14 },
+            bodyFont:  { family: "'Tenor Sans', sans-serif", size: 12 },
+            padding: 12,
+            callbacks: {
+              label: ctx => ' R$ ' + ctx.parsed.y.toLocaleString('pt-BR', { minimumFractionDigits: 2 })
+            }
+          }
+        },
+        scales: {
+          x: {
+            grid: { color: 'rgba(201,168,76,.1)' },
+            ticks: {
+              font: { family: "'Tenor Sans', sans-serif", size: 11 },
+              color: '#7A6358'
+            }
+          },
+          y: {
+            beginAtZero: true,
+            grid: { color: 'rgba(201,168,76,.12)' },
+            ticks: {
+              font: { family: "'Tenor Sans', sans-serif", size: 11 },
+              color: '#7A6358',
+              callback: v => 'R$ ' + v.toLocaleString('pt-BR')
+            }
+          }
+        }
+      }
+    });
+  });
+
+function gerarPDF() {
+  const { jsPDF } = window.jspdf;
+  const canvas = document.getElementById('meuGrafico');
+  const img = canvas.toDataURL('image/png', 1.0);
+  const pdf = new jsPDF('landscape');
+
+  pdf.setFillColor(69, 0, 15);
+  pdf.rect(0, 0, 297, 22, 'F');
+
+  pdf.setTextColor(232, 213, 163);
+  pdf.setFontSize(16);
+  pdf.text('Aurora Boutique — Relatório de Faturamento', 15, 14);
+
+  pdf.setTextColor(100, 100, 100);
+  pdf.setFontSize(10);
+  pdf.text('Gerado em ' + new Date().toLocaleDateString('pt-BR'), 15, 30);
+
+  pdf.addImage(img, 'PNG', 15, 36, 262, 120);
+
+  pdf.setDrawColor(201, 168, 76);
+  pdf.setLineWidth(0.4);
+  pdf.line(15, 165, 282, 165);
+  pdf.setFontSize(8);
+  pdf.setTextColor(150, 150, 150);
+  pdf.text('© Aurora Boutique · Documento gerado automaticamente', 15, 170);
+
+  pdf.save('relatorio-aurora-boutique.pdf');
+}
+</script>
+
+{% endblock %}
