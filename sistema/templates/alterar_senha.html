@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% block content %}
+    <div style="max-width: 500px; margin: 0 auto;">
+        <h2 style="text-align: center;">Alterar senha</h2>
+        
+        <form method="POST" style="display: flex; flex-direction: column; gap: 15px;">
+            {% csrf_token %}
+            {% for field in form %}
+                <div>
+                    <label style="font-weight: bold;">{{ field.label }}:</label><br>
+                    {{ field }}
+                    {% if field.help_text %}
+                        <span class="helptext">{{ field.help_text|safe }}</span>
+                    {% endif %}
+                </div>
+            {% endfor %}
+            <button type="submit" class="btn" style="width: 100%; margin-top: 15px;">Salvar nova senha</button>
+        </form>
+    </div>
+{% endblock %}

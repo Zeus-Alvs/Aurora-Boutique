@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<section class="admin-secao">
+  <div class="admin-header">
+    <h2 class="admin-header-titulo">Contatos</h2>
+  </div>
+
+  <div class="admin-table-wrap">
+    <table class="admin-table">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Nome</th>
+          <th>E-mail</th>
+          <th>Assunto</th>
+          <th>Mensagem</th>
+          <th>Ações</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for contato in contatos %}
+        <tr>
+          <td class="td-id">{{ contato.id }}</td>
+          <td>{{ contato.nome }}</td>
+          <td>{{ contato.email }}</td>
+          <td>{{ contato.assunto }}</td>
+          <td>{{ contato.mensagem }}</td>
+          <td>
+            <a href="#" class="btn-acao btn-acao-excluir">Excluir</a>
+          </td>
+        </tr>
+        {% empty %}
+        <tr class="admin-table-vazia"><td colspan="6">Nenhuma mensagem recebida ainda.</td></tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</section>
+
+{% endblock %}

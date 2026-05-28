@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<section class="admin-secao">
+  <div class="admin-header">
+    <h2 class="admin-header-titulo">Avaliações</h2>
+  </div>
+
+  <div class="admin-table-wrap">
+    <table class="admin-table">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Cliente</th>
+          <th>Comentário</th>
+          <th>Nota</th>
+          <th>Ações</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for avaliacao in avaliacoes %}
+        <tr>
+          <td class="td-id">{{ avaliacao.id }}</td>
+          <td>{{ avaliacao.cliente_nome }}</td>
+          <td>{{ avaliacao.comentario }}</td>
+          <td><span class="admin-estrelas">★</span> {{ avaliacao.nota }}/5</td>
+          <td>
+            <a href="{% url 'excluir_avaliacao' avaliacao.id %}" class="btn-acao btn-acao-excluir">Excluir</a>
+          </td>
+        </tr>
+        {% empty %}
+        <tr class="admin-table-vazia"><td colspan="5">Nenhuma avaliação registrada no sistema.</td></tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</section>
+
+{% endblock %}

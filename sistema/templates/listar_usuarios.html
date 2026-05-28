@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<section class="admin-secao">
+  <div class="admin-header">
+    <h2 class="admin-header-titulo">Usuários</h2>
+    <a href="{% url 'adicionar_usuario' %}" class="btn-admin-novo">+ Novo Usuário</a>
+  </div>
+
+  <div class="admin-table-wrap">
+    <table class="admin-table">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Nome</th>
+          <th>E-mail</th>
+          <th>Ações</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for u in usuarios %}
+        <tr>
+          <td class="td-id">{{ u.id }}</td>
+          <td>{{ u.username }}</td>
+          <td>{{ u.email }}</td>
+          <td>
+            <a href="{% url 'editar_usuario' u.id %}" class="btn-acao btn-acao-editar">Editar</a>
+            {% if u != request.user %}
+              <a href="{% url 'excluir_usuario' u.id %}" class="btn-acao btn-acao-excluir">Excluir</a>
+            {% endif %}
+          </td>
+        </tr>
+        {% empty %}
+        <tr class="admin-table-vazia"><td colspan="4">Nenhum usuário cadastrado.</td></tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</section>
+
+{% endblock %}

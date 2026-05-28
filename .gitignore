@@ -1,0 +1,40 @@
+# Ambientes Virtuais
+venv/
+env/
+Lib/
+Scripts/
+Include/
+pyvenv.cfg
+
+# Arquivos do Python
+*.pyc
+*.pyo
+__pycache__/
+*.pyd
+.Python
+
+# Banco de Dados Local do Django
+db.sqlite3
+db.sqlite3-journal
+
+# Credenciais e Variáveis de Ambiente (CRÍTICO)
+.env
+firebase-key.json
+firebase-*.json
+
+# Uploads de Usuários
+media/
+
+# Arquivos Estáticos Compilados (Opcional, mas recomendado)
+staticfiles/
+static/assets/
+
+# Configurações de IDEs e Editores
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Arquivos do Sistema Operacional
+.DS_Store
+Thumbs.db

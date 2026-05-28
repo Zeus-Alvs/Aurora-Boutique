@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-content">
+    <div class="hero-badge">Haute Cadeaux · Desde 2024</div>
+    <h1 class="hero-title">Aurora<br><em>Boutique</em></h1>
+    <div class="hero-divisor">
+      <span></span>
+      <svg width="14" height="14" viewBox="0 0 14 14" fill="currentColor"><path d="M7 0l1.5 5.5L14 7l-5.5 1.5L7 14l-1.5-5.5L0 7l5.5-1.5z"/></svg>
+      <span></span>
+    </div>
+    <p class="hero-subtitulo">Presentes inesquecíveis, flores frescas e alta joalheria sob medida para celebrar os seus melhores momentos.</p>
+    <a href="{% url 'criar_conta' %}" class="btn-primario">Crie sua conta</a>
+  </div>
+</section>
+
+<!-- CATEGORIAS -->
+<section class="secao-categorias">
+  <h2 class="secao-titulo">Nossas Especialidades</h2>
+  <p class="secao-subtitulo">Arte e cuidado em cada detalhe</p>
+  <div class="categorias-grid">
+    <div class="categoria-item"><div class="categoria-icone">💎</div><span class="categoria-label">Joias</span></div>
+    <div class="categoria-item"><div class="categoria-icone">🌹</div><span class="categoria-label">Flores</span></div>
+    <div class="categoria-item"><div class="categoria-icone">🍫</div><span class="categoria-label">Doces</span></div>
+    <div class="categoria-item"><div class="categoria-icone">🧺</div><span class="categoria-label">Cestas</span></div>
+    <div class="categoria-item"><div class="categoria-icone">🎁</div><span class="categoria-label">Presentes</span></div>
+  </div>
+</section>
+
+<!-- AVALIAÇÕES -->
+<section class="secao-avaliacoes">
+  <div style="text-align:center; margin-bottom:52px;">
+    <h2 class="secao-titulo">O que dizem nossos clientes</h2>
+    <p class="secao-subtitulo">Experiências que ficam na memória</p>
+  </div>
+  <div class="avaliacoes-grid">
+    {% for avaliacao in avaliacoes %}
+      <div class="card-avaliacao">
+        <div class="estrelas">
+          {% for i in "12345"|make_list %}{% if forloop.counter <= avaliacao.nota %}★{% else %}☆{% endif %}{% endfor %}
+        </div>
+        <p class="avaliacao-texto">{{ avaliacao.comentario }}</p>
+        <div class="avaliacao-autor">— {{ avaliacao.cliente_nome }}</div>
+      </div>
+    {% empty %}
+      <p class="avaliacao-vazia">Nossas primeiras avaliações estão sendo preparadas com carinho.</p>
+    {% endfor %}
+  </div>
+</section>
+
+{% endblock %}

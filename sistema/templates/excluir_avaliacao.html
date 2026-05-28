@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+{% block content %}
+    <div style="max-width: 500px; margin: 40px auto; text-align: center; border: 1px solid #eee; padding: 40px; border-radius: 8px;">
+        <h3 style="margin-bottom: 30px; font-weight: normal;">Tem a certeza que deseja excluir esta avaliação permanentemente?</h3>
+        <p style="color: #666; font-size: 0.9em; margin-bottom: 30px;">ID do registo: <span style="font-family: monospace;">{{ id }}</span></p>
+        
+        <form method="POST" style="display: flex; justify-content: center; gap: 15px;">
+            {% csrf_token %}
+            <button type="submit" class="btn" style="background-color: #dc3545; padding: 12px 25px;">Sim, excluir</button>
+            <a href="{% url 'listar_avaliacoes' %}" class="btn" style="background-color: #e0e0e0; color: #333; padding: 12px 25px; text-decoration: none;">Cancelar</a>
+        </form>
+    </div>
+{% endblock %}

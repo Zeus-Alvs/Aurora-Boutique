@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<section class="admin-secao">
+  <div class="admin-header">
+    <h2 class="admin-header-titulo">Compras Realizadas</h2>
+  </div>
+
+  <div class="admin-table-wrap">
+    <table class="admin-table">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Cliente</th>
+          <th>Foto</th>
+          <th>Produto</th>
+          <th>Preço</th>
+          <th>Qtd.</th>
+          <th>Data</th>
+          <th>Ações</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for compra in compras %}
+        <tr>
+          <td class="td-id">{{ compra.id }}</td>
+          <td>{{ compra.cliente.username }}</td>
+          <td>
+            {% if compra.produto.imagem %}
+              <img src="{{ compra.produto.imagem.url }}" alt="{{ compra.produto.nome }}" class="admin-table-img">
+            {% endif %}
+          </td>
+          <td>{{ compra.produto.nome }}</td>
+          <td>R$ {{ compra.preco_na_epoca }}</td>
+          <td>{{ compra.quantidade }}</td>
+          <td>{{ compra.data_compra|date:"d/m/Y H:i" }}</td>
+          <td>
+            <a href="{% url 'excluir_compra' compra.id %}" class="btn-acao btn-acao-excluir">Excluir</a>
+          </td>
+        </tr>
+        {% empty %}
+        <tr class="admin-table-vazia"><td colspan="8">Nenhuma compra registrada.</td></tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</section>
+
+{% endblock %}

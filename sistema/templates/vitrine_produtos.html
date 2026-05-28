@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<section class="vitrine-secao">
+  <div style="text-align:center; margin-bottom:52px;">
+    <h2 class="secao-titulo">Nosso Catálogo</h2>
+    <p class="secao-subtitulo">Presentes artesanais e peças exclusivas importadas</p>
+  </div>
+
+  <div class="vitrine-grid">
+    {% for produto in produtos_locais %}
+      <div class="card-produto">
+        <div class="card-produto-top"></div>
+
+        {% if produto.imagem %}
+          <img src="{{ produto.imagem.url }}" alt="{{ produto.nome }}" class="card-produto-img">
+        {% elif produto.imagem_url %}
+          <img src="{{ produto.imagem_url }}" alt="{{ produto.nome }}" class="card-produto-img-contain">
+        {% else %}
+          <div class="card-produto-img-placeholder">Sem imagem</div>
+        {% endif %}
+
+        <div class="card-produto-body">
+          <span class="badge-cat">{{ produto.categoria.nome }}</span>
+          <h3 class="card-produto-nome">{{ produto.nome }}</h3>
+          <p class="card-produto-preco">R$ {{ produto.preco }}</p>
+          <p class="card-produto-estoque">{{ produto.quantidade }} unidades disponíveis</p>
+
+          {% if user.is_authenticated %}
+            <a href="{% url 'comprar_produto' produto.id %}" class="btn-comprar">Adicionar à Cesta</a>
+          {% else %}
+            <a href="{% url 'login' %}" class="btn-comprar btn-comprar-inativo">Faça login para comprar</a>
+          {% endif %}
+        </div>
+      </div>
+    {% empty %}
+      <p class="vitrine-vazia">Nenhum produto encontrado no catálogo.</p>
+    {% endfor %}
+  </div>
+</section>
+
+{% endblock %}

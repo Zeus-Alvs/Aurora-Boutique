@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<section class="admin-secao">
+  <div class="admin-header">
+        <h2 class="admin-header-titulo">Produtos</h2>
+        <div>
+            <a href="{% url 'sincronizar_api' %}" class="btn-admin-novo">⚡ Importar da API</a>
+            <a href="{% url 'add_produto' %}" class="btn-admin-novo">+ Novo Produto</a>
+        </div>
+    </div>
+  <div class="admin-table-wrap">
+    <table class="admin-table">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Foto</th>
+          <th>Nome</th>
+          <th>Qtd.</th>
+          <th>Preço</th>
+          <th>Categoria</th>
+          <th>Ações</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for produto in produtos %}
+        <tr>
+          <td class="td-id">{{ produto.id }}</td>
+          <td>
+            {% if produto.imagem %}
+              <img src="{{ produto.imagem.url }}" alt="{{ produto.nome }}" class="admin-table-img">
+            {% else %}
+              <span class="admin-table-sem-foto">Sem foto</span>
+            {% endif %}
+          </td>
+          <td>{{ produto.nome }}</td>
+          <td>{{ produto.quantidade }}</td>
+          <td>R$ {{ produto.preco }}</td>
+          <td>{{ produto.categoria.nome }}</td>
+          <td>
+            <a href="{% url 'editar_produto' produto.id %}" class="btn-acao btn-acao-editar">Editar</a>
+            <a href="{% url 'excluir_produto' produto.id %}" class="btn-acao btn-acao-excluir">Excluir</a>
+          </td>
+        </tr>
+        {% empty %}
+        <tr class="admin-table-vazia"><td colspan="7">Nenhum produto cadastrado.</td></tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</section>
+
+{% endblock %}

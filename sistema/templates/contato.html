@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<div class="contato-wrapper">
+  <div class="contato-card">
+
+    <div class="contato-badge">
+      <span></span>
+      <svg width="10" height="10" viewBox="0 0 14 14" fill="currentColor">
+        <path d="M7 0l1.5 5.5L14 7l-5.5 1.5L7 14l-1.5-5.5L0 7l5.5-1.5z"/>
+      </svg>
+      <span></span>
+    </div>
+
+    <h2 class="contato-titulo">Fale Conosco</h2>
+    <p class="contato-sub">Dúvidas, encomendas especiais ou suporte corporativo.</p>
+
+    <form method="POST">
+      {% csrf_token %}
+      {% for field in form %}
+        <div>
+          <label>{{ field.label }}</label>
+          {{ field }}
+          {% if field.errors %}
+            <p class="campo-erro">{{ field.errors|striptags }}</p>
+          {% endif %}
+        </div>
+      {% endfor %}
+      <button type="submit" class="btn-contato">Enviar Mensagem</button>
+    </form>
+
+  </div>
+</div>
+
+{% endblock %}

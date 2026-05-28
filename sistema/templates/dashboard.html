@@ -1,0 +1,98 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<section class="banner-topo">
+  <span class="banner-label">Administração</span>
+  <h1 class="banner-titulo">Dash<em>board</em></h1>
+  <div class="banner-divisor">
+    <span></span>
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2l2.4 7.4H22l-6.2 4.5 2.4 7.4L12 17l-6.2 4.3 2.4-7.4L2 9.4h7.6z"/></svg>
+    <span></span>
+  </div>
+</section>
+
+<section class="dashboard-secao">
+  <div class="dashboard-grid">
+
+    <a href="{% url 'listar_usuarios' %}" class="dashboard-card">
+      <div class="dashboard-card-top"></div>
+      <div class="dashboard-card-body">
+        <div class="dashboard-icone">👤</div>
+        <h3 class="dashboard-card-titulo">Usuários</h3>
+        <p class="dashboard-card-desc">Gerenciar clientes e admins</p>
+      </div>
+      <div class="dashboard-card-footer">
+        <span>Acessar</span>
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </div>
+    </a>
+
+    <a href="{% url 'listar_produtos' %}" class="dashboard-card">
+      <div class="dashboard-card-top"></div>
+      <div class="dashboard-card-body">
+        <div class="dashboard-icone">💎</div>
+        <h3 class="dashboard-card-titulo">Produtos</h3>
+        <p class="dashboard-card-desc">Estoque, preços e importação</p>
+      </div>
+      <div class="dashboard-card-footer">
+        <span>Acessar</span>
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </div>
+    </a>
+
+    <a href="{% url 'listar_categorias' %}" class="dashboard-card">
+      <div class="dashboard-card-top"></div>
+      <div class="dashboard-card-body">
+        <div class="dashboard-icone">✦</div>
+        <h3 class="dashboard-card-titulo">Categorias</h3>
+        <p class="dashboard-card-desc">Organização do catálogo</p>
+      </div>
+      <div class="dashboard-card-footer">
+        <span>Acessar</span>
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </div>
+    </a>
+
+    <a href="{% url 'listar_compras' %}" class="dashboard-card">
+      <div class="dashboard-card-top"></div>
+      <div class="dashboard-card-body">
+        <div class="dashboard-icone">🛍</div>
+        <h3 class="dashboard-card-titulo">Vendas</h3>
+        <p class="dashboard-card-desc">Histórico de pedidos</p>
+      </div>
+      <div class="dashboard-card-footer">
+        <span>Acessar</span>
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </div>
+    </a>
+
+    <a href="{% url 'listar_contatos' %}" class="dashboard-card">
+      <div class="dashboard-card-top"></div>
+      <div class="dashboard-card-body">
+        <div class="dashboard-icone">✉</div>
+        <h3 class="dashboard-card-titulo">Contatos</h3>
+        <p class="dashboard-card-desc">Mensagens de clientes</p>
+      </div>
+      <div class="dashboard-card-footer">
+        <span>Acessar</span>
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </div>
+    </a>
+
+    <a href="{% url 'listar_avaliacoes' %}" class="dashboard-card">
+      <div class="dashboard-card-top"></div>
+      <div class="dashboard-card-body">
+        <div class="dashboard-icone">★</div>
+        <h3 class="dashboard-card-titulo">Avaliações</h3>
+        <p class="dashboard-card-desc">Reviews do Firebase</p>
+      </div>
+      <div class="dashboard-card-footer">
+        <span>Acessar</span>
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </div>
+    </a>
+
+  </div>
+</section>
+
+{% endblock %}
