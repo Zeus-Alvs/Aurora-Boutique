@@ -16,6 +16,9 @@
       <div class="navbar-logo-gem">✦</div>
       Aurora <span>Boutique</span>
     </a>
+    <button class="navbar-toggle" aria-label="Menu" onclick="document.querySelector('.navbar-links').classList.toggle('active');this.classList.toggle('active');">
+      <span></span><span></span><span></span>
+    </button>
     <nav class="navbar-links">
       <a href="{% url 'index' %}" class="nav-link">Home</a>
       <a href="{% url 'quem_somos' %}" class="nav-link">Quem somos</a>
